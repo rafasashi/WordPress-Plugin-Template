@@ -4,8 +4,11 @@
  *  @package WordPress Plugin Template/JS
  */
 
-jQuery( document ).ready(
-	function ( e ) {
-
-	}
-);
+;(function($){
+	
+	$(document).ready(function(){
+		
+		
+	});
+	
+})(jQuery);
