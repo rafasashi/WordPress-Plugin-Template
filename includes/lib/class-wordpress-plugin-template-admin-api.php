@@ -81,6 +81,7 @@ class WordPress_Plugin_Template_Admin_API {
 
 			case 'text':
 			case 'url':
+			case 'color':
 			case 'email':
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="text" name="' . esc_attr( $option_name ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '" value="' . esc_attr( $data ) . '" />' . "\n";
 				break;
@@ -98,15 +99,15 @@ class WordPress_Plugin_Template_Admin_API {
 					$max = ' max="' . esc_attr( $field['max'] ) . '"';
 				}
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="' . esc_attr( $field['type'] ) . '" name="' . esc_attr( $option_name ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '" value="' . esc_attr( $data ) . '"' . $min . '' . $max . '/>' . "\n";
-				break;
+			break;
 
 			case 'text_secret':
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="text" name="' . esc_attr( $option_name ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '" value="" />' . "\n";
-				break;
+			break;
 
 			case 'textarea':
 				$html .= '<textarea id="' . esc_attr( $field['id'] ) . '" rows="5" cols="50" name="' . esc_attr( $option_name ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '">' . $data . '</textarea><br/>' . "\n";
-				break;
+			break;
 
 			case 'checkbox':
 				$checked = '';
@@ -114,7 +115,7 @@ class WordPress_Plugin_Template_Admin_API {
 					$checked = 'checked="checked"';
 				}
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="' . esc_attr( $field['type'] ) . '" name="' . esc_attr( $option_name ) . '" ' . $checked . '/>' . "\n";
-				break;
+			break;
 
 			case 'checkbox_multi':
 				foreach ( $field['options'] as $k => $v ) {
@@ -124,7 +125,7 @@ class WordPress_Plugin_Template_Admin_API {
 					}
 					$html .= '<p><label for="' . esc_attr( $field['id'] . '_' . $k ) . '" class="checkbox_multi"><input type="checkbox" ' . checked( $checked, true, false ) . ' name="' . esc_attr( $option_name ) . '[]" value="' . esc_attr( $k ) . '" id="' . esc_attr( $field['id'] . '_' . $k ) . '" /> ' . $v . '</label></p> ';
 				}
-				break;
+			break;
 
 			case 'radio':
 				foreach ( $field['options'] as $k => $v ) {
@@ -134,7 +135,7 @@ class WordPress_Plugin_Template_Admin_API {
 					}
 					$html .= '<label for="' . esc_attr( $field['id'] . '_' . $k ) . '"><input type="radio" ' . checked( $checked, true, false ) . ' name="' . esc_attr( $option_name ) . '" value="' . esc_attr( $k ) . '" id="' . esc_attr( $field['id'] . '_' . $k ) . '" /> ' . $v . '</label> ';
 				}
-				break;
+			break;
 
 			case 'select':
 				$html .= '<select name="' . esc_attr( $option_name ) . '" id="' . esc_attr( $field['id'] ) . '">';
@@ -146,7 +147,7 @@ class WordPress_Plugin_Template_Admin_API {
 					$html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $k ) . '">' . $v . '</option>';
 				}
 				$html .= '</select> ';
-				break;
+			break;
 
 			case 'select_multi':
 				$html .= '<select name="' . esc_attr( $option_name ) . '[]" id="' . esc_attr( $field['id'] ) . '" multiple="multiple">';
@@ -158,7 +159,7 @@ class WordPress_Plugin_Template_Admin_API {
 					$html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $k ) . '">' . $v . '</option>';
 				}
 				$html .= '</select> ';
-				break;
+			break;
 
 			case 'image':
 				$image_thumb = '';
@@ -169,18 +170,8 @@ class WordPress_Plugin_Template_Admin_API {
 				$html .= '<input id="' . $option_name . '_button" type="button" data-uploader_title="' . __( 'Upload an image', 'wordpress-plugin-template' ) . '" data-uploader_button_text="' . __( 'Use image', 'wordpress-plugin-template' ) . '" class="image_upload_button button" value="' . __( 'Upload new image', 'wordpress-plugin-template' ) . '" />' . "\n";
 				$html .= '<input id="' . $option_name . '_delete" type="button" class="image_delete_button button" value="' . __( 'Remove image', 'wordpress-plugin-template' ) . '" />' . "\n";
 				$html .= '<input id="' . $option_name . '" class="image_data_field" type="hidden" name="' . $option_name . '" value="' . $data . '"/><br/>' . "\n";
-				break;
-
-			case 'color':
-				//phpcs:disable
-				?><div class="color-picker" style="position:relative;">
-					<input type="text" name="<?php esc_attr_e( $option_name ); ?>" class="color" value="<?php esc_attr_e( $data ); ?>" />
-					<div style="position:absolute;background:#FFF;z-index:99;border-radius:100%;" class="colorpicker"></div>
-				</div>
-				<?php
-				//phpcs:enable
-				break;
-
+			break;
+			
 			case 'editor':
 				wp_editor(
 					$data,
@@ -189,7 +180,7 @@ class WordPress_Plugin_Template_Admin_API {
 						'textarea_name' => $option_name,
 					)
 				);
-				break;
+			break;
 
 		}
 

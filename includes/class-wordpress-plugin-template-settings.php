@@ -107,7 +107,7 @@ class WordPress_Plugin_Template_Settings {
 				default:
 					return;
 			}
-			add_action( 'admin_print_styles-' . $page, array( $this, 'settings_assets' ) );
+			add_action( 'admin_print_styles-' . $page, array( $this, 'settings_assetssettings_assets' ) );
 		}
 	}
 
@@ -117,6 +117,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @return mixed|void
 	 */
 	private function menu_settings() {
+
 		return apply_filters(
 			$this->base . 'menu_settings',
 			array(
@@ -151,17 +152,8 @@ class WordPress_Plugin_Template_Settings {
 	 */
 	public function settings_assets() {
 
-		// We're including the farbtastic script & styles here because they're needed for the colour picker
-		// If you're not including a colour picker field then you can leave these calls out as well as the farbtastic dependency for the wpt-admin-js script below.
-		wp_enqueue_style( 'farbtastic' );
-		wp_enqueue_script( 'farbtastic' );
-
-		// We're including the WP media scripts here because they're needed for the image upload field.
-		// If you're not including an image upload then you can leave this function call out.
-		wp_enqueue_media();
-
-		wp_register_script( $this->parent->_token . '-settings-js', $this->parent->assets_url . 'js/settings' . $this->parent->script_suffix . '.js', array( 'farbtastic', 'jquery' ), '1.0.0', true );
-		wp_enqueue_script( $this->parent->_token . '-settings-js' );
+		//wp_register_script( $this->parent->_token . '-settings-js', $this->parent->assets_url . 'js/settings' . $this->parent->script_suffix . '.js', array('jquery'), '1.0.0', true );
+		//wp_enqueue_script( $this->parent->_token . '-settings-js' );
 	}
 
 	/**
@@ -184,7 +176,8 @@ class WordPress_Plugin_Template_Settings {
 	 * @return array Fields to be displayed on settings page
 	 */
 	private function settings_fields() {
-
+		
+		/*
 		$settings['standard'] = array(
 			'title'       => __( 'Standard', 'wordpress-plugin-template' ),
 			'description' => __( 'These are fairly standard form input fields.', 'wordpress-plugin-template' ),
@@ -309,6 +302,7 @@ class WordPress_Plugin_Template_Settings {
 				),
 			),
 		);
+		*/
 
 		$settings = apply_filters( $this->parent->_token . '_settings_fields', $settings );
 
