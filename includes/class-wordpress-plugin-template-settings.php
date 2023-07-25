@@ -177,6 +177,8 @@ class WordPress_Plugin_Template_Settings {
 	 */
 	private function settings_fields() {
 		
+		$settings = array();
+		
 		/*
 		$settings['standard'] = array(
 			'title'       => __( 'Standard', 'wordpress-plugin-template' ),
@@ -304,9 +306,7 @@ class WordPress_Plugin_Template_Settings {
 		);
 		*/
 
-		$settings = apply_filters( $this->parent->_token . '_settings_fields', $settings );
-
-		return $settings;
+		return apply_filters( $this->parent->_token . '_settings_fields', $settings );
 	}
 
 	/**
