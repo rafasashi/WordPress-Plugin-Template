@@ -56,9 +56,10 @@ class WordPress_Plugin_Template_Settings {
 	 * @param object $parent Parent object.
 	 */
 	public function __construct( $parent ) {
+		
 		$this->parent = $parent;
 
-		$this->base = 'wpt_';
+		$this->base = $this->parent->_base;
 
 		// Initialise settings.
 		add_action( 'init', array( $this, 'init_settings' ), 11 );

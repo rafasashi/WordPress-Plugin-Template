@@ -47,7 +47,16 @@ class WordPress_Plugin_Template {
 	 * @since   1.0.0
 	 */
 	public $_version; //phpcs:ignore
-
+	
+	/**
+	 * The base.
+	 *
+	 * @var     string
+	 * @access  public
+	 * @since   1.0.0
+	 */
+	public $_base; //phpcs:ignore
+	
 	/**
 	 * The token.
 	 *
@@ -109,7 +118,9 @@ class WordPress_Plugin_Template {
 	 * @param string $version Plugin version.
 	 */
 	public function __construct( $file = '', $version = '1.0.0' ) {
+		
 		$this->_version = $version;
+		$this->_base 	= 'wpt_';
 		$this->_token   = 'wordpress_plugin_template';
 
 		// Load plugin environment variables.
