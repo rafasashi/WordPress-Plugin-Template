@@ -117,7 +117,8 @@ class WordPress_Plugin_Template_Settings {
 	 * @return mixed|void
 	 */
 	private function menu_settings() {
-
+		
+		/*
 		return apply_filters(
 			$this->base . 'menu_settings',
 			array(
@@ -132,6 +133,7 @@ class WordPress_Plugin_Template_Settings {
 				'position'    => null,
 			)
 		);
+		*/
 	}
 
 	/**
