@@ -107,7 +107,7 @@ class WordPress_Plugin_Template_Settings {
 				default:
 					return;
 			}
-			add_action( 'admin_print_styles-' . $page, array( $this, 'settings_assetssettings_assets' ) );
+			add_action( 'admin_print_styles-' . $page, array( $this, 'settings_assets' ) );
 		}
 	}
 
