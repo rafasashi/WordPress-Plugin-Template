@@ -39,39 +39,42 @@ class WordPress_Plugin_Template_Admin_API {
 		}
 
 		// Check for prefix on option name.
-		$option_name = '';
-		if ( isset( $data['prefix'] ) ) {
-			$option_name = $data['prefix'];
-		}
-
-		// Get saved data.
+		
+		$option_name = ( isset( $data['prefix'] ) ? $data['prefix'] : '' ) . ( !empty($field['name']) ? $field['name'] : $field['id']);
+		
+		// Get default
+			
+		$default = isset($field['default']) ? $field['default'] : null;
+			
+		// Get saved data
+		
 		$data = '';
-		if ( $post ) {
+			
+		if ( !empty( $field['data'] ) ) {
+			
+			$data = $field['data'];
+		}
+		elseif ( $post ) {
 
 			// Get saved field data.
-			$option_name .= $field['id'];
-			$option       = get_post_meta( $post->ID, $field['id'], true );
-
-			// Get data to display in field.
-			if ( isset( $option ) ) {
-				$data = $option;
-			}
-		} else {
+			
+			$data = get_post_meta( $post->ID, $field['id'], true );
+		} 
+		else {
 
 			// Get saved option.
-			$option_name .= $field['id'];
-			$option       = get_option( $option_name );
-
-			// Get data to display in field.
-			if ( isset( $option ) ) {
-				$data = $option;
-			}
+			
+			$data = get_option( $option_name,$default );
 		}
 
-		// Show default data if no option saved and default is supplied.
-		if ( false === $data && isset( $field['default'] ) ) {
-			$data = $field['default'];
-		} elseif ( false === $data ) {
+		// Show default data if no option saved and default is supplied
+
+		if( $data === '' && !is_null($default) ) {
+			
+			$data = $default;
+		} 
+		elseif( $data === false ) {
+			
 			$data = '';
 		}
 

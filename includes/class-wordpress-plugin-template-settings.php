@@ -71,7 +71,7 @@ class WordPress_Plugin_Template_Settings {
 		add_action( 'admin_menu', array( $this, 'add_menu_item' ) );
 
 		// Add settings link to plugins page.
-		add_filter( 'plugin_action_links',array($this,'add_settings_link'),10,2);
+		//add_filter( 'plugin_action_links',array($this,'add_settings_link'),10,2);
 
 		// Configure placement of plugin settings page. See readme for implementation.
 		add_filter( $this->base . 'menu_settings', array( $this, 'configure_settings' ) );
