@@ -336,7 +336,7 @@ class WordPress_Plugin_Template_Admin_API {
 	 */
 	public function save_meta_boxes( $post_id = 0 ) {
 
-		if( !$post_id || isset($_POST['_inline_edit']) ){
+		if( !$post_id || isset($_POST['_inline_edit']) || isset($_GET['bulk_edit']) ){
 			
 			return;
 		}
