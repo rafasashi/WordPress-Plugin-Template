@@ -141,15 +141,27 @@ class WordPress_Plugin_Template_Admin_API {
 			break;
 
 			case 'select':
+				
 				$html .= '<select name="' . esc_attr( $option_name ) . '" id="' . esc_attr( $field['id'] ) . '">';
+				
 				foreach ( $field['options'] as $k => $v ) {
+					
 					$selected = false;
-					if ( $k === $data ) {
+					
+					if( is_numeric($data) && floatval($k) === floatval($data) ) {
+						
 						$selected = true;
 					}
+					elseif( $k === $data ){
+						
+						$selected = true;
+					}
+							
 					$html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $k ) . '">' . $v . '</option>';
 				}
+				
 				$html .= '</select> ';
+				
 			break;
 
 			case 'select_multi':
