@@ -2,19 +2,16 @@
 /**
  * Plugin Name: WordPress Plugin Template
  * Version: 1.0.0
- * Plugin URI: http://www.hughlashbrooke.com/
+ * Plugin URI: https://wp2e.recuweb.com/installer/hlashbrooke-wordpress-plugin-template/
  * Description: This is your starter template for your next WordPress plugin.
- * Author: Hugh Lashbrooke
- * Author URI: http://www.hughlashbrooke.com/
+ * Author: WP Package Editor
+ * Author URI: https://wp2e.recuweb.com/
  * Requires at least: 4.0
  * Tested up to: 4.0
  *
  * Text Domain: wordpress-plugin-template
  * Domain Path: /lang/
  *
- * @package WordPress
- * @author Hugh Lashbrooke
- * @since 1.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
