@@ -124,6 +124,7 @@ class WordPress_Plugin_Template {
 		$this->_token   = 'wordpress_plugin_template';
 
 		// Load plugin environment variables.
+		
 		$this->file       = $file;
 		$this->dir        = dirname( $this->file );
 		$this->assets_dir = trailingslashit( $this->dir ) . 'assets';
@@ -134,21 +135,28 @@ class WordPress_Plugin_Template {
 		register_activation_hook( $this->file, array( $this, 'install' ) );
 
 		// Load frontend JS & CSS.
+		
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ), 10 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 10 );
 
 		// Load admin JS & CSS.
+		
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 10, 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_styles' ), 10, 1 );
 
 		// Load API for generic admin functions.
+		
 		if ( is_admin() ) {
-			$this->admin = new WordPress_Plugin_Template_Admin_API();
+			
+			$this->admin = new WordPress_Plugin_Template_Admin_API($this);
 		}
 
 		// Handle localisation.
+		
 		$this->load_plugin_textdomain();
+		
 		add_action( 'init', array( $this, 'load_localisation' ), 0 );
+	
 	} // End __construct ()
 
 	/**

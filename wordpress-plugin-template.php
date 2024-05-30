@@ -11,7 +11,6 @@
  *
  * Text Domain: wordpress-plugin-template
  * Domain Path: /lang/
- *
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

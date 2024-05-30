@@ -13,11 +13,23 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin API class.
  */
 class WordPress_Plugin_Template_Admin_API {
-
+	
+	/**
+	 * The main plugin object.
+	 *
+	 * @var     object
+	 * @access  public
+	 * @since   1.0.0
+	 */
+	public $parent = null;
+	
 	/**
 	 * Constructor function
 	 */
-	public function __construct() {
+	public function __construct($parent) {
+		
+		$this->parent = $parent;
+		
 		add_action( 'save_post', array( $this, 'save_meta_boxes' ), 10, 1 );
 	}
 
@@ -104,16 +116,30 @@ class WordPress_Plugin_Template_Admin_API {
 			case 'password':
 			case 'number':
 			case 'hidden':
+				
 				$min = '';
+				
 				if ( isset( $field['min'] ) ) {
+					
 					$min = ' min="' . esc_attr( $field['min'] ) . '"';
 				}
 
 				$max = '';
+				
 				if ( isset( $field['max'] ) ) {
+					
 					$max = ' max="' . esc_attr( $field['max'] ) . '"';
 				}
-				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="' . esc_attr( $field['type'] ) . '" name="' . esc_attr( $option_name ) . '" placeholder="' . $placeholder . '" value="' . esc_attr( $data ) . '"' . $min . $max . $style . $required . $disabled . '/>' . "\n";
+				
+				$step = '';
+				
+				if ( isset( $field['step'] ) ) {
+					
+					$step = ' step="' . esc_attr( $field['step'] ) . '"';
+				}
+				
+				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="' . esc_attr( $field['type'] ) . '" name="' . esc_attr( $option_name ) . '" placeholder="' . $placeholder . '" value="' . esc_attr( $data ) . '"' . $min . $max . $step . $style . $required . $disabled . '/>' . "\n";
+			
 			break;
 
 			case 'text_secret':
@@ -320,7 +346,7 @@ class WordPress_Plugin_Template_Admin_API {
 	 */
 	public function meta_box_content( $post, $args ) {
 
-		$fields = apply_filters( $post->post_type . '_custom_fields', array(), $post->post_type );
+		$fields = apply_filters( $this->parent->_base . $post->post_type . '_custom_fields', array(), $post->post_type );
 
 		if ( ! is_array( $fields ) || 0 === count( $fields ) ) {
 			return;
@@ -400,7 +426,7 @@ class WordPress_Plugin_Template_Admin_API {
 
 		$post_type = get_post_type( $post_id );
 
-		$fields = apply_filters( $post_type . '_custom_fields', array(), $post_type );
+		$fields = apply_filters( $this->parent->_base . $post_type . '_custom_fields', array(), $post_type );
 
 		if ( ! is_array( $fields ) || 0 === count( $fields ) ) {
 			
