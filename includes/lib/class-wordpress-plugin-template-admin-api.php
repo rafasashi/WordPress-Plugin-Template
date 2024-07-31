@@ -98,7 +98,7 @@ class WordPress_Plugin_Template_Admin_API {
 
 		$required = ( ( isset($field['required']) && $field['required'] === true ) ? ' required="true"' : '' );
 		
-		$placeholder = ( isset($field['placeholder']) ? esc_attr($field['placeholder']) : '' );
+		$placeholder = ( !empty($field['placeholder']) && is_string($field['placeholder']) ? esc_attr($field['placeholder']) : '' );
 		
 		// get html
 		
