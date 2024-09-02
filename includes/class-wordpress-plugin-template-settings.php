@@ -398,18 +398,13 @@ class WordPress_Plugin_Template_Settings {
 	 * @return void
 	 */
 	public function settings_page() {
-
+		
+		// get tab name
+		$tab = !empty($_GET['tab']) ? sanitize_title($_GET['tab']) : key($this->settings);
+		
 		// Build page HTML.
 		$html      = '<div class="wrap" id="' . $this->parent->_token . '_settings">' . "\n";
 			$html .= '<h2>' . __( 'Plugin Settings', 'wordpress-plugin-template' ) . '</h2>' . "\n";
-
-			$tab = '';
-		//phpcs:disable
-		if ( isset( $_GET['tab'] ) && $_GET['tab'] ) {
-			
-			$tab .= sanitize_text_field($_GET['tab']);
-		}
-		//phpcs:enable
 
 		// Show page tabs.
 		if ( is_array( $this->settings ) && 1 < count( $this->settings ) ) {
@@ -417,18 +412,16 @@ class WordPress_Plugin_Template_Settings {
 			$html .= '<h2 class="nav-tab-wrapper">' . "\n";
 
 			$c = 0;
+			
 			foreach ( $this->settings as $section => $data ) {
 
 				// Set tab class.
+			
 				$class = 'nav-tab';
-				if ( ! isset( $_GET['tab'] ) ) { //phpcs:ignore
-					if ( 0 === $c ) {
-						$class .= ' nav-tab-active';
-					}
-				} else {
-					if ( isset( $_GET['tab'] ) && $section == $_GET['tab'] ) { //phpcs:ignore
-						$class .= ' nav-tab-active';
-					}
+				
+				if ( $section == $tab ) {
+					
+					$class .= ' nav-tab-active';
 				}
 
 				// Set tab link.
@@ -446,6 +439,8 @@ class WordPress_Plugin_Template_Settings {
 			$html .= '</h2>' . "\n";
 		}
 
+		if( $this->settings[$tab]['fields'] ){
+
 			$html .= '<form method="post" action="options.php" enctype="multipart/form-data">' . "\n";
 
 				// Get settings fields.
@@ -459,6 +454,8 @@ class WordPress_Plugin_Template_Settings {
 					$html .= '<input name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Save Settings', 'wordpress-plugin-template' ) ) . '" />' . "\n";
 				$html     .= '</p>' . "\n";
 			$html         .= '</form>' . "\n";
+		}
+		
 		$html             .= '</div>' . "\n";
 
 		echo wp_kses_normalize_entities($html); //phpcs:ignore
