@@ -430,16 +430,14 @@ class WordPress_Plugin_Template_Settings {
 					$tab_link = remove_query_arg( 'settings-updated', $tab_link );
 				}
 
-				// Output tab.
-				$html .= '<a href="' . $tab_link . '" class="' . esc_attr( $class ) . '">' . esc_html( $data['title'] ) . '</a>' . "\n";
+				// Output tab
+				$html .= '<a href="' . $tab_link . '" class="' . esc_attr( $class ) . '">' . ( !empty($data['logo']) ? '<img src="'.$data['logo'].'" alt="" style="margin-top: 4px;margin-right: 7px;float: left;">' : '' ) . wp_kses_normalize_entities($data['title']) . '</a>' . "\n";
 
 				++$c;
 			}
 
 			$html .= '</h2>' . "\n";
 		}
-
-		if( $this->settings[$tab]['fields'] ){
 
 			$html .= '<form method="post" action="options.php" enctype="multipart/form-data">' . "\n";
 
@@ -449,14 +447,17 @@ class WordPress_Plugin_Template_Settings {
 				do_settings_sections( $this->parent->_token . '_settings' );
 				$html .= ob_get_clean();
 
-				$html     .= '<p class="submit">' . "\n";
-					$html .= '<input type="hidden" name="tab" value="' . esc_attr( $tab ) . '" />' . "\n";
-					$html .= '<input name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Save Settings', 'wordpress-plugin-template' ) ) . '" />' . "\n";
-				$html     .= '</p>' . "\n";
-			$html         .= '</form>' . "\n";
-		}
-		
-		$html             .= '</div>' . "\n";
+				if( $this->settings[$tab]['fields'] ){
+
+					$html     .= '<p class="submit">' . "\n";
+						$html .= '<input type="hidden" name="tab" value="' . esc_attr( $tab ) . '" />' . "\n";
+						$html .= '<input name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Save Settings', 'wordpress-plugin-template' ) ) . '" />' . "\n";
+					$html     .= '</p>' . "\n";
+				}
+				
+			$html .= '</form>' . "\n";
+			
+		$html .= '</div>' . "\n";
 
 		echo wp_kses_normalize_entities($html); //phpcs:ignore
 	}
