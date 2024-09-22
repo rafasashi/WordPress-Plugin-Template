@@ -447,7 +447,7 @@ class WordPress_Plugin_Template_Settings {
 				do_settings_sections( $this->parent->_token . '_settings' );
 				$html .= ob_get_clean();
 
-				if( $this->settings[$tab]['fields'] ){
+				if( !empty($this->settings[$tab]['fields']) ){
 
 					$html     .= '<p class="submit">' . "\n";
 						$html .= '<input type="hidden" name="tab" value="' . esc_attr( $tab ) . '" />' . "\n";
