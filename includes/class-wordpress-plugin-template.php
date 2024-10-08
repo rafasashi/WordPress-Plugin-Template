@@ -308,7 +308,7 @@ class WordPress_Plugin_Template {
 	 * @since 1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cloning of WordPress_Plugin_Template is forbidden' ) ), esc_attr( $this->_version ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning of WordPress_Plugin_Template is forbidden', 'wordpress-plugin-template'  ), esc_attr( $this->_version ) );
 
 	} // End __clone ()
 
@@ -318,7 +318,7 @@ class WordPress_Plugin_Template {
 	 * @since 1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Unserializing instances of WordPress_Plugin_Template is forbidden' ) ), esc_attr( $this->_version ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of WordPress_Plugin_Template is forbidden', 'wordpress-plugin-template'  ), esc_attr( $this->_version ) );
 	} // End __wakeup ()
 
 	/**

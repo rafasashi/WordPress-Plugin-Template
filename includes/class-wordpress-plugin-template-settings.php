@@ -431,7 +431,7 @@ class WordPress_Plugin_Template_Settings {
 				}
 
 				// Output tab
-				$html .= '<a href="' . $tab_link . '" class="' . esc_attr( $class ) . '">' . ( !empty($data['logo']) ? '<img src="'.$data['logo'].'" alt="" style="margin-top: 4px;margin-right: 7px;float: left;">' : '' ) . wp_kses_normalize_entities($data['title']) . '</a>' . "\n";
+				$html .= '<a href="' . esc_url($tab_link) . '" class="' . esc_attr( $class ) . '">' . ( !empty($data['logo']) ? '<img src="'.$data['logo'].'" alt="" style="margin-top: 4px;margin-right: 7px;float: left;">' : '' ) . wp_kses_normalize_entities($data['title']) . '</a>' . "\n";
 
 				++$c;
 			}
@@ -486,7 +486,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @since 1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cloning of WordPress_Plugin_Template_API is forbidden.' ) ), esc_attr( $this->parent->_version ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cloning of WordPress_Plugin_Template_API is forbidden.', 'wordpress-plugin-template'  ), esc_attr( $this->parent->_version ) );
 	} // End __clone()
 
 	/**
@@ -495,7 +495,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @since 1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Unserializing instances of WordPress_Plugin_Template_API is forbidden.' ) ), esc_attr( $this->parent->_version ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Unserializing instances of WordPress_Plugin_Template_API is forbidden.', 'wordpress-plugin-template'  ), esc_attr( $this->parent->_version ) );
 	} // End __wakeup()
 
 }
