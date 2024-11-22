@@ -69,7 +69,7 @@ class WordPress_Plugin_Template_Post_Type {
 	 * @param array  $options Post type options.
 	 */
 	public function __construct( $post_type = '', $plural = '', $single = '', $description = '', $options = array() ) {
-
+	
 		if ( ! $post_type || ! $plural || ! $single ) {
 			return;
 		}
@@ -100,22 +100,22 @@ class WordPress_Plugin_Template_Post_Type {
 			'name'               => $this->plural,
 			'singular_name'      => $this->single,
 			'name_admin_bar'     => $this->single,
-			'add_new'            => _x( 'Add New', $this->post_type, 'wordpress-plugin-template' ),
-			'add_new_item'       => sprintf( __( 'Add New %s', 'wordpress-plugin-template' ), $this->single ),
-			'edit_item'          => sprintf( __( 'Edit %s', 'wordpress-plugin-template' ), $this->single ),
-			'new_item'           => sprintf( __( 'New %s', 'wordpress-plugin-template' ), $this->single ),
-			'all_items'          => sprintf( __( 'All %s', 'wordpress-plugin-template' ), $this->plural ),
-			'view_item'          => sprintf( __( 'View %s', 'wordpress-plugin-template' ), $this->single ),
-			'search_items'       => sprintf( __( 'Search %s', 'wordpress-plugin-template' ), $this->plural ),
-			'not_found'          => sprintf( __( 'No %s Found', 'wordpress-plugin-template' ), $this->plural ),
-			'not_found_in_trash' => sprintf( __( 'No %s Found In Trash', 'wordpress-plugin-template' ), $this->plural ),
-			'parent_item_colon'  => sprintf( __( 'Parent %s' ), $this->single ),
+			'add_new'            => esc_html_x( 'Add New', esc_html($this->post_type), 'wordpress-plugin-template' ),
+			'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'wordpress-plugin-template' ), esc_html($this->single) ),
+			'edit_item'          => sprintf( esc_html__( 'Edit %s', 'wordpress-plugin-template' ), esc_html($this->single) ),
+			'new_item'           => sprintf( esc_html__( 'New %s', 'wordpress-plugin-template' ), esc_html($this->single) ),
+			'all_items'          => sprintf( esc_html__( 'All %s', 'wordpress-plugin-template' ), esc_html($this->plural) ),
+			'view_item'          => sprintf( esc_html__( 'View %s', 'wordpress-plugin-template' ), esc_html($this->single) ),
+			'search_items'       => sprintf( esc_html__( 'Search %s', 'wordpress-plugin-template' ), esc_html($this->plural) ),
+			'not_found'          => sprintf( esc_html__( 'No %s Found', 'wordpress-plugin-template' ), esc_html($this->plural) ),
+			'not_found_in_trash' => sprintf( esc_html__( 'No %s Found In Trash', 'wordpress-plugin-template' ), esc_html($this->plural) ),
+			'parent_item_colon'  => sprintf( esc_html__( 'Parent %s' ), esc_html($this->single) ),
 			'menu_name'          => $this->plural,
 		);
 		//phpcs:enable
 
 		$args = array(
-			'labels'                => apply_filters( $this->post_type . '_labels', $labels ),
+			'labels'                => $labels,
 			'description'           => $this->description,
 			'public'                => true,
 			'publicly_queryable'    => true,
@@ -139,7 +139,7 @@ class WordPress_Plugin_Template_Post_Type {
 
 		$args = array_merge( $args, $this->options );
 
-		register_post_type( $this->post_type, apply_filters( $this->post_type . '_register_args', $args, $this->post_type ) );
+		register_post_type( $this->post_type, $args );
 	}
 
 	/**
@@ -153,16 +153,16 @@ class WordPress_Plugin_Template_Post_Type {
 		//phpcs:disable
 		$messages[ $this->post_type ] = array(
 			0  => '',
-			1  => sprintf( __( '%1$s updated. %2$sView %3$s%4$s.', 'wordpress-plugin-template' ), $this->single, '<a href="' . esc_url( get_permalink( $post_ID ) ) . '">', $this->single, '</a>' ),
-			2  => __( 'Custom field updated.', 'wordpress-plugin-template' ),
-			3  => __( 'Custom field deleted.', 'wordpress-plugin-template' ),
-			4  => sprintf( __( '%1$s updated.', 'wordpress-plugin-template' ), $this->single ),
-			5  => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %2$s.', 'wordpress-plugin-template' ), $this->single, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-			6  => sprintf( __( '%1$s published. %2$sView %3$s%4s.', 'wordpress-plugin-template' ), $this->single, '<a href="' . esc_url( get_permalink( $post_ID ) ) . '">', $this->single, '</a>' ),
-			7  => sprintf( __( '%1$s saved.', 'wordpress-plugin-template' ), $this->single ),
-			8  => sprintf( __( '%1$s submitted. %2$sPreview post%3$s%4$s.', 'wordpress-plugin-template' ), $this->single, '<a target="_blank" href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) . '">', $this->single, '</a>' ),
-			9  => sprintf( __( '%1$s scheduled for: %2$s. %3$sPreview %4$s%5$s.', 'wordpress-plugin-template' ), $this->single, '<strong>' . date_i18n( __( 'M j, Y @ G:i', 'wordpress-plugin-template' ), strtotime( $post->post_date ) ) . '</strong>', '<a target="_blank" href="' . esc_url( get_permalink( $post_ID ) ) . '">', $this->single, '</a>' ),
-			10 => sprintf( __( '%1$s draft updated. %2$sPreview %3$s%4$s.', 'wordpress-plugin-template' ), $this->single, '<a target="_blank" href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) . '">', $this->single, '</a>' ),
+			1  => sprintf( esc_html__( '%1$s updated. %2$sView %3$s%4$s.', 'wordpress-plugin-template' ), esc_html($this->single), '<a href="' . esc_url( get_permalink( $post_ID ) ) . '">', esc_html($this->single), '</a>' ),
+			2  => esc_html__( 'Custom field updated.', 'wordpress-plugin-template' ),
+			3  => esc_html__( 'Custom field deleted.', 'wordpress-plugin-template' ),
+			4  => sprintf( esc_html__( '%1$s updated.', 'wordpress-plugin-template' ), esc_html($this->single) ),
+			5  => isset( $_GET['revision'] ) ? sprintf( esc_html__( '%1$s restored to revision from %2$s.', 'wordpress-plugin-template' ), esc_html($this->single), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6  => sprintf( esc_html__( '%1$s published. %2$sView %3$s%4s.', 'wordpress-plugin-template' ), esc_html($this->single), '<a href="' . esc_url( get_permalink( $post_ID ) ) . '">', esc_html($this->single), '</a>' ),
+			7  => sprintf( esc_html__( '%1$s saved.', 'wordpress-plugin-template' ), esc_html($this->single) ),
+			8  => sprintf( esc_html__( '%1$s submitted. %2$sPreview post%3$s%4$s.', 'wordpress-plugin-template' ), esc_html($this->single), '<a target="_blank" href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) . '">', esc_html($this->single), '</a>' ),
+			9  => sprintf( esc_html__( '%1$s scheduled for: %2$s. %3$sPreview %4$s%5$s.', 'wordpress-plugin-template' ), esc_html($this->single), '<strong>' . date_i18n( __( 'M j, Y @ G:i', 'wordpress-plugin-template' ), strtotime( $post->post_date ) ) . '</strong>', '<a target="_blank" href="' . esc_url( get_permalink( $post_ID ) ) . '">', esc_html($this->single), '</a>' ),
+			10 => sprintf( esc_html__( '%1$s draft updated. %2$sPreview %3$s%4$s.', 'wordpress-plugin-template' ), esc_html($this->single), '<a target="_blank" href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) . '">', esc_html($this->single), '</a>' ),
 		);
 		//phpcs:enable
 
@@ -180,12 +180,13 @@ class WordPress_Plugin_Template_Post_Type {
 
 		//phpcs:disable
 		$bulk_messages[ $this->post_type ] = array(
-			'updated'   => sprintf( _n( '%1$s %2$s updated.', '%1$s %3$s updated.', $bulk_counts['updated'], 'wordpress-plugin-template' ), $bulk_counts['updated'], $this->single, $this->plural ),
-			'locked'    => sprintf( _n( '%1$s %2$s not updated, somebody is editing it.', '%1$s %3$s not updated, somebody is editing them.', $bulk_counts['locked'], 'wordpress-plugin-template' ), $bulk_counts['locked'], $this->single, $this->plural ),
-			'deleted'   => sprintf( _n( '%1$s %2$s permanently deleted.', '%1$s %3$s permanently deleted.', $bulk_counts['deleted'], 'wordpress-plugin-template' ), $bulk_counts['deleted'], $this->single, $this->plural ),
-			'trashed'   => sprintf( _n( '%1$s %2$s moved to the Trash.', '%1$s %3$s moved to the Trash.', $bulk_counts['trashed'], 'wordpress-plugin-template' ), $bulk_counts['trashed'], $this->single, $this->plural ),
-			'untrashed' => sprintf( _n( '%1$s %2$s restored from the Trash.', '%1$s %3$s restored from the Trash.', $bulk_counts['untrashed'], 'wordpress-plugin-template' ), $bulk_counts['untrashed'], $this->single, $this->plural ),
+			'updated'   => esc_html( sprintf( _n( '%1$s %2$s updated.', '%1$s %3$s updated.', $bulk_counts['updated'], 'wordpress-plugin-template' ), $bulk_counts['updated'], $this->single, $this->plural ) ),
+			'locked'    => esc_html( sprintf( _n( '%1$s %2$s not updated, somebody is editing it.', '%1$s %3$s not updated, somebody is editing them.', $bulk_counts['locked'], 'wordpress-plugin-template' ), $bulk_counts['locked'], $this->single, $this->plural ) ),
+			'deleted'   => esc_html( sprintf( _n( '%1$s %2$s permanently deleted.', '%1$s %3$s permanently deleted.', $bulk_counts['deleted'], 'wordpress-plugin-template' ), $bulk_counts['deleted'], $this->single, $this->plural ) ),
+			'trashed'   => esc_html( sprintf( _n( '%1$s %2$s moved to the Trash.', '%1$s %3$s moved to the Trash.', $bulk_counts['trashed'], 'wordpress-plugin-template' ), $bulk_counts['trashed'], $this->single, $this->plural ) ),
+			'untrashed' => esc_html( sprintf( _n( '%1$s %2$s restored from the Trash.', '%1$s %3$s restored from the Trash.', $bulk_counts['untrashed'], 'wordpress-plugin-template' ), $bulk_counts['untrashed'], $this->single, $this->plural ) ),
 		);
+
 		//phpcs:enable
 
 		return $bulk_messages;

@@ -389,7 +389,7 @@ class WordPress_Plugin_Template_Settings {
 		
 		$html = '<p> ' . $this->settings[ $section['id'] ]['description'] . '</p>' . "\n";
 		
-		echo wp_kses_normalize_entities($html); //phpcs:ignore
+		echo wp_kses($html,apply_filters($this->parent->_base . 'allowed_admin_html',array())); //phpcs:ignore
 	}
 
 	/**
@@ -431,7 +431,7 @@ class WordPress_Plugin_Template_Settings {
 				}
 
 				// Output tab
-				$html .= '<a href="' . esc_url($tab_link) . '" class="' . esc_attr( $class ) . '">' . ( !empty($data['logo']) ? '<img src="'.$data['logo'].'" alt="" style="margin-top: 4px;margin-right: 7px;float: left;">' : '' ) . wp_kses_normalize_entities($data['title']) . '</a>' . "\n";
+				$html .= '<a href="' . esc_url($tab_link) . '" class="' . esc_attr( $class ) . '">' . ( !empty($data['logo']) ? '<img src="'.$data['logo'].'" alt="" style="margin-top: 4px;margin-right: 7px;float: left;">' : '' ) . esc_html($data['title']) . '</a>' . "\n";
 
 				++$c;
 			}
@@ -459,7 +459,7 @@ class WordPress_Plugin_Template_Settings {
 			
 		$html .= '</div>' . "\n";
 
-		echo wp_kses_normalize_entities($html); //phpcs:ignore
+		echo wp_kses($html,apply_filters($this->parent->_base . 'allowed_admin_html',array())); //phpcs:ignore
 	}
 
 	/**

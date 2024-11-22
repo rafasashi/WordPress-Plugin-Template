@@ -1,1 +1,9 @@
-/* phpcs:ignore */
+.form-field{
+	margin:10px 0;
+	display: flow-root;
+	clear:left;
+}
+.form-field label{
+	display:block;
+	margin-bottom:5px;
+}

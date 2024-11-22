@@ -30,9 +30,264 @@ class WordPress_Plugin_Template_Admin_API {
 		
 		$this->parent = $parent;
 		
+		add_action('rewbe_allowed_admin_html', array( $this, 'add_allowed_default_html' ), 10, 1 );
+		add_action('rewbe_allowed_admin_html', array( $this, 'add_allowed_form_html' ), 10, 1 );
+		add_action('rewbe_allowed_admin_html', array( $this, 'add_allowed_table_html' ), 10, 1 );
+		
 		add_action( 'save_post', array( $this, 'save_meta_boxes' ), 10, 1 );
 	}
+	
+	public function add_allowed_default_html($html){
+		
+		return array_merge($html,array(
+		
+			'h1' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'h2' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'h3' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array()
+			),
+			'img' => array(
+				'src' 	=> array(),
+				'alt' 	=> array(),
+				'title' => array(),
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'div' => array(
+			
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+				
+				'data-uploader_title'		=> array(),
+				'data-uploader_button_text'	=> array(),
+			),
+			'p' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'a' => array(
+			
+				'href' => array(),
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+				
+				'data-target'	=> array(),
+				'data-html'		=> array(),
+			),
+			'i' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'b' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'br' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'span' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'ul' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'ol' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'li' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'code' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+		));
+	}
+	
+	public function add_allowed_form_html($html) {
+		
+		return array_merge($html, array(
+		
+			'label' => array(
+			
+				'for'   => array(),
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'form' => array(
+			
+				'action' => array(),
+				'method' => array(),
+				'style'  => array(),
+				'class'  => array(),
+				'id'     => array(),
+				//'enctype' => array(),
+			),
+			'input' => array(
+			
+				'type'        => array(),
+				'name'        => array(),
+				'value'       => array(),
+				'style'       => array(),
+				'class'       => array(),
+				'id'          => array(),
+				'checked'     => array(),
+				'required'    => array(),
+				'disabled'    => array(),
+				'placeholder' => array(),
+				'min'         => array(),
+				'max'         => array(),
+				'maxlength'   => array(),
+				'minlength'   => array(),
+				'pattern'     => array(),
+				'step'        => array(),
+				'data-value'  => array(),
+			),
+			'textarea' => array(
+			
+				'name'        => array(),
+				'rows'        => array(),
+				'cols'        => array(),
+				'style'       => array(),
+				'class'       => array(),
+				'id'          => array(),
+				'placeholder' => array(),
+				'required'    => array(),
+				'disabled'    => array(),
+			),
+			'select' => array(
+			
+				'name'        => array(),
+				'style'       => array(),
+				'class'       => array(),
+				'id'          => array(),
+				'required'    => array(),
+				'disabled'    => array(),
+			),
+			'option' => array(
+			
+				'value'     => array(),
+				'selected'  => array(),
+				'style'     => array(),
+				'class'     => array(),
+				'id'        => array(),
+				'disabled'  => array(),
+			),
+			'button' => array(
+			
+				'type' 		=> array(),
+				'style' 	=> array(),
+				'class' 	=> array(),
+				'id'    	=> array(),
+				'disabled' 	=> array(),
+				'name'   	=> array(),
+				'value'  	=> array(),
+			),
+		));
+	}
 
+	public function add_allowed_table_html($html){
+			
+		return array_merge($html, array(
+		
+			'table' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+				'border' => array(),
+				'cellpadding' => array(),
+				'cellspacing' => array(),
+			),
+			'thead' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'tbody' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'tfoot' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'tr' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'th' => array(
+				'style'    => array(),
+				'class'    => array(),
+				'id'       => array(),
+				'colspan'  => array(),
+				'rowspan'  => array(),
+				'width'    => array(),
+				'height'   => array(),
+				'scope'    => array(),
+				'align'    => array(),
+				'valign'   => array(),
+			),
+			'td' => array(
+				'style'    => array(),
+				'class'    => array(),
+				'id'       => array(),
+				'colspan'  => array(),
+				'rowspan'  => array(),
+				'width'    => array(),
+				'height'   => array(),
+				'align'    => array(),
+				'valign'   => array(),
+			),
+			'caption' => array(
+				'style' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'col' => array(
+				'style'   => array(),
+				'class'   => array(),
+				'span'    => array(),
+				'width'   => array(),
+			),
+			'colgroup' => array(
+				'style'   => array(),
+				'class'   => array(),
+				'span'    => array(),
+			),
+		));
+	}
+	
 	/**
 	 * Generate HTML for displaying fields.
 	 *
@@ -62,7 +317,7 @@ class WordPress_Plugin_Template_Admin_API {
 		
 		$data = '';
 			
-		if ( !empty( $field['data'] ) ) {
+		if ( isset( $field['data'] ) ) {
 			
 			$data = $field['data'];
 		}
@@ -271,12 +526,14 @@ class WordPress_Plugin_Template_Admin_API {
 			break;
 		}
 
+		$allowed_html = apply_filters($this->parent->_base . 'allowed_admin_html',array());
+
 		if ( ! $echo ) {
 			
-			return wp_kses_normalize_entities($html);
+			return wp_kses($html,$allowed_html);
 		}
 
-		echo wp_kses_normalize_entities($html); //phpcs:ignore
+		echo wp_kses($html,$allowed_html);
 
 	}
 
@@ -401,13 +658,15 @@ class WordPress_Plugin_Template_Admin_API {
 		
 		$html .= '</p>' . PHP_EOL;
 		
+		$allowed_html = apply_filters($this->parent->_base . 'allowed_admin_html',array());
+		
 		if($echo){
 			
-			echo $html;
+			echo wp_kses($html,$allowed_html);
 		}
 		else{
 			
-			return $html;
+			return wp_kses($html,$allowed_html);
 		}
 	}
 
