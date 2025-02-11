@@ -296,18 +296,15 @@ class WordPress_Plugin_Template_Admin_API {
 	 * @param  boolean $echo  Whether to echo the field HTML or return it.
 	 * @return string
 	 */
-	public function display_field( $data = array(), $post = null, $echo = true ) {
+	public function display_field( $field = array(), $post = null, $echo = true ) {
 
-		// Get field info.
-		if ( isset( $data['field'] ) ) {
-			$field = $data['field'];
-		} else {
-			$field = $data;
-		}
-
-		// Check for prefix on option name.
+		// Get field info
+        
+		$field = ( isset( $field['field'] ) ? $field['field'] : $field );
+        
+		// Check for prefix on option name
 		
-		$option_name = ( isset( $data['prefix'] ) ? $data['prefix'] : '' ) . ( !empty($field['name']) ? $field['name'] : $field['id']);
+		$option_name = ( isset( $field['prefix'] ) ? $field['prefix'] : '' ) . ( !empty($field['name']) ? $field['name'] : $field['id']);
 		
 		// Get default
 			
