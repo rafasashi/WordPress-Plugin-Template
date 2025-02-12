@@ -30,9 +30,9 @@ class WordPress_Plugin_Template_Admin_API {
 		
 		$this->parent = $parent;
 		
-		add_action('rewbe_allowed_admin_html', array( $this, 'add_allowed_default_html' ), 10, 1 );
-		add_action('rewbe_allowed_admin_html', array( $this, 'add_allowed_form_html' ), 10, 1 );
-		add_action('rewbe_allowed_admin_html', array( $this, 'add_allowed_table_html' ), 10, 1 );
+		add_action($this->parent->_base.'allowed_admin_html', array( $this, 'add_allowed_default_html' ), 10, 1 );
+		add_action($this->parent->_base.'allowed_admin_html', array( $this, 'add_allowed_form_html' ), 10, 1 );
+		add_action($this->parent->_base.'allowed_admin_html', array( $this, 'add_allowed_table_html' ), 10, 1 );
 		
 		add_action( 'save_post', array( $this, 'save_meta_boxes' ), 10, 1 );
 	}
