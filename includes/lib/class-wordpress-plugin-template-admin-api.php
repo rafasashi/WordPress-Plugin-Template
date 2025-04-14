@@ -192,6 +192,10 @@ class WordPress_Plugin_Template_Admin_API {
 				'required'    => array(),
 				'disabled'    => array(),
 			),
+            'optgroup'  => array(
+                
+                'label' => array(),
+            ),
 			'option' => array(
 			
 				'value'     => array(),
@@ -429,30 +433,45 @@ class WordPress_Plugin_Template_Admin_API {
 					$html .= '<label for="' . esc_attr( $field['id'] . '_' . $k ) . '" style="margin-right:5px;"><input type="radio" ' . checked( $checked, true, false ) . ' name="' . esc_attr( $option_name ) . '" value="' . esc_attr( $k ) . '" id="' . esc_attr( $field['id'] . '_' . $k ) . '" /> ' . $v . '</label> ';
 				}
 			break;
-
+            
 			case 'select':
-				
-				$html .= '<select name="' . esc_attr( $option_name ) . '" id="' . esc_attr( $field['id'] ) . '"' . $style . $required . $disabled . '>';
-				
-				foreach ( $field['options'] as $k => $v ) {
-					
-					$selected = false;
-					
-					if( is_numeric($data) && floatval($k) === floatval($data) ) {
-						
-						$selected = true;
-					}
-					elseif( $k === $data ){
-						
-						$selected = true;
-					}
-							
-					$html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $k ) . '">' . $v . '</option>';
-				}
-				
-				$html .= '</select> ';
-				
-			break;
+                
+                $html .= '<select class="form-control'. ( !empty( $field['class'] ) ? ' ' . $field['class'] : '' ) .'" name="' . esc_attr( $option_name ) . '" id="' . esc_attr( $field['id'] ) . '"'.$style.$required.$disabled.'>';
+                
+                foreach ( $field['options'] as $key => $value ) {
+                    
+                    if( is_array($value) ){
+
+                        $html .= '<optgroup label="'.$key.'">';
+                            
+                            foreach( $value as $k => $v ){
+                                
+                                $selected = $k == $data ? true : false;
+                            
+                                $html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $k ) . '">' . $v . '</option>';
+                            }
+                            
+                        $html .= '</optgroup>';
+                    }
+                    else{
+
+                        $selected = false;
+                
+                        if( is_numeric($data) && floatval($key) === floatval($data) ) {
+                            
+                            $selected = true;
+                        }
+                        elseif( $key === $data ){
+                            
+                            $selected = true;
+                        }
+
+                        $html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $key ) . '">' . $value . '</option>';
+                    }
+                }
+                
+                $html .= '</select> ';
+            break;
 
 			case 'select_multi':
 				$html .= '<select name="' . esc_attr( $option_name ) . '[]" id="' . esc_attr( $field['id'] ) . '" multiple="multiple"' . $style . $required . $disabled . '>';
