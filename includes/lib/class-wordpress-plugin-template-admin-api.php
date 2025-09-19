@@ -300,15 +300,22 @@ class WordPress_Plugin_Template_Admin_API {
 	 * @param  boolean $echo  Whether to echo the field HTML or return it.
 	 * @return string
 	 */
-	public function display_field( $field = array(), $post = null, $echo = true ) {
+	public function display_field( $data = array(), $post = null, $echo = true ) {
 
-		// Get field info
-        
-		$field = ( isset( $field['field'] ) ? $field['field'] : $field );
-        
-		// Check for prefix on option name
+		// Get field info.
 		
-		$option_name = ( isset( $field['prefix'] ) ? $field['prefix'] : '' ) . ( !empty($field['name']) ? $field['name'] : $field['id']);
+        if( isset( $data['field'] ) ){
+			
+            $field = $data['field'];
+		} 
+        else{
+            
+			$field = $data;
+		}
+
+		// Check for prefix on option name.
+		
+		$option_name = ( isset( $data['prefix'] ) ? $data['prefix'] : '' ) . ( !empty($field['name']) ? $field['name'] : $field['id']);
 		
 		// Get default
 			
@@ -403,7 +410,7 @@ class WordPress_Plugin_Template_Admin_API {
 			break;
 
 			case 'textarea':
-				$html .= '<textarea id="' . esc_attr( $field['id'] ) . '" rows="5" cols="50" name="' . esc_attr( $option_name ) . '" placeholder="' . $placeholder . '"' . $style . $required . $disabled . '>' . $data . '</textarea><br/>' . "\n";
+				$html .= '<textarea id="' . esc_attr( $field['id'] ) . '" rows="5" cols="50" name="' . esc_attr( $option_name ) . '" placeholder="' . $placeholder . '"' . $style . $required . $disabled . '>' . esc_textarea($data) . '</textarea><br/>' . "\n";
 			break;
 
 			case 'checkbox':
